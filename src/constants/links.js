@@ -3,7 +3,8 @@ const publicLinks = {
     Home: '/home',
     Profile: '/profile',
     Budget: '/budget',
-    Login: '/login'
+    Login: '/login',
+    Signup:'/sign-up'
 }
 
 export {publicLinks}
