@@ -5,7 +5,7 @@ import { publicLinks } from "../constants/links";
 function Navbar() {
   return (
     <>
-      <nav className="navbar navbar-expand-md sticky-top bg-white mb-3">
+      <nav className="navbar navbar-expand-md sticky-top bg-dark-subtle mb-3">
         <div className="container">
           <Link className="navbar-brand fw-semibold">Financial Management</Link>
 
@@ -25,27 +25,27 @@ function Navbar() {
           >
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link to={publicLinks.Home} className="nav-link">
-                  Home
+                <Link to={publicLinks?.Home} className="nav-link">
+                  <i className="bi bi-house"></i> Home
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={publicLinks.Home} className="nav-link">
-                  Profile
+                <Link to={publicLinks?.ExpenseTracking} className="nav-link">
+                  <i className="bi bi-cart"></i> Expense Tracking
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={publicLinks.Home} className="nav-link">
-                  Manage
+                <Link to={publicLinks?.Budget} className="nav-link">
+                  <i className="bi bi-credit-card"></i> Budget
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={publicLinks.Login} className="nav-link">
-                  Login
+                <Link to={publicLinks?.ExpenseTracking} className="nav-link">
+                  <i className="bi bi-graph-up-arrow"></i> Reports & Analysis
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={publicLinks.Signup} className="nav-link">
+                <Link to={publicLinks?.Signup} className="nav-link">
                   Signup
                 </Link>
               </li>

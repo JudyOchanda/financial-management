@@ -1,13 +1,14 @@
-import React from 'react';
+import React from "react";
+import HomeProfile from "../layouts/home/HomeProfile";
 
 function Home() {
-    return ( 
-        <>
-        <div className="container bg-success">
-            <h1>Home Customer</h1>
-        </div>
-        </>
-     );
+  return (
+    <>
+      <div className="container">
+        <HomeProfile />
+      </div>
+    </>
+  );
 }
 
 export default Home;
