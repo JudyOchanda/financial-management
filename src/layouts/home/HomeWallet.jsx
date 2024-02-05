@@ -1,5 +1,6 @@
 import React from "react";
 import { useUserContext } from "../../authContext";
+import { Link } from "react-router-dom";
 
 function HomeWallet() {
   const { user } = useUserContext();
@@ -7,13 +8,34 @@ function HomeWallet() {
     <>
       <section className="mb-3">
         <div className="card shadow">
+          <h5 className="card-header">Wallet</h5>
           <div className="card-body">
-            <h5 className="card-title">Wallet</h5>
             <p className="card-text">Ksh {user.accountBalance}</p>
             <p className="card-text">
               Transactions: {user.transactions.length}
             </p>
           </div>
+        </div>
+      </section>
+
+      <section className="mb-3">
+        <div className="card shadow">
+          <h5 className="card-header">Debts</h5>
+          <ul className="list-group">
+            {user.debts.map((debt) => (
+              <li className="list-group-item d-flex justify-content-between align-items-start">
+                <div className="ms-2 me-auto">
+                  <div className="fw-bold">{debt.creditors}</div>
+                  {debt.amount} - {debt.dueDate}
+                </div>
+                <span className="badge bg-primary rounded-pill">
+                  <Link>
+                    <i className="bi bi-arrow-right text-white"></i>
+                  </Link>
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </>

@@ -22,6 +22,20 @@ const user = {
       amount: 10000,
     },
   ],
+  debts: [
+    {
+      id: 1,
+      creditors: "Jude",
+      amount: 10000,
+      dueDate: "2024-10-20",
+    },
+    {
+      id: 2,
+      creditors: "Anne",
+      amount: 5000,
+      dueDate: "2024-10-20",
+    },
+  ],
 };
 
 export { user };
