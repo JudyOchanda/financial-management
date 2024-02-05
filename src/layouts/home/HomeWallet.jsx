@@ -1,5 +1,5 @@
 import React from "react";
-import { walletsData } from "../../data/wallet";
+import { walletsData } from "../../data/dataStructure.jsx";
 import { Link } from "react-router-dom";
 
 function HomeWallet() {
