@@ -1,6 +1,6 @@
 const publicLinks = {
   Landing: "/",
-  Home: "/home",
+  Home: "/",
   Profile: "/profile",
   Budget: "/budget",
   Login: "/login",

@@ -1,4 +1,5 @@
-import React, { Suspense } from "react";
+/* eslint-disable no-unused-vars */
+import React, { Suspense, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { publicLinks } from "./links";
 import Navbar from "../layouts/Navbar";
@@ -12,18 +13,28 @@ const Signup = React.lazy(() => import("../pages/Signup"));
 const ExpenseTracking = React.lazy(() => import("../pages/ExpenseTracking"));
 
 function BaseRouter() {
+  const [isSignedIn, setIsSignedIn] = useState(true);
   return (
     <Router>
       <Suspense fallback={<>Loading...</>}>
         <Navbar />
         <Routes>
-          <Route exact path={publicLinks.Landing} element={<Landing />} />
-          <Route path={publicLinks.Home} element={<Home />} />
+          {isSignedIn ? (
+            <>
+              <Route exact path={publicLinks.Home} element={<Home />} />
+            </>
+          ) : (
+            <Route exact path={publicLinks.Landing} element={<Landing />} />
+          )}
+
           <Route path={publicLinks.Profile} element={<Profile />} />
           <Route path={publicLinks.Budget} element={<Budget />} />
           <Route path={publicLinks.Login} element={<Login />} />
           <Route path={publicLinks.Signup} element={<Signup />} />
-          <Route path={publicLinks.ExpenseTracking} element={<ExpenseTracking />} />
+          <Route
+            path={publicLinks.ExpenseTracking}
+            element={<ExpenseTracking />}
+          />
         </Routes>
       </Suspense>
     </Router>

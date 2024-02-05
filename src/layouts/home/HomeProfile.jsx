@@ -5,7 +5,7 @@ function HomeProfile() {
   return (
     <>
       <section className="mb-3">
-        <div className="card bg-dark shadow">
+        <div className="card bg-dark bg-gradient shadow">
           <div className="card-body text-white">
             <img src={avatarImg} alt="" className="avatar-image mb-2" />
             <h5 className="card-title">Hello John</h5>
