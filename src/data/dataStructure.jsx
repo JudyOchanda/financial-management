@@ -36,6 +36,7 @@ const user = {
       dueDate: "2024-10-20",
     },
   ],
+  bills: [],
 };
 
 export { user };
