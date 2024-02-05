@@ -12,7 +12,12 @@ function HomeWallet() {
               <Link className="text-decoration-none">
                 <div className="card shadow bg-light-subtle">
                   <div className="card-body">
-                    <h5 className="card-title">{wallet.name}</h5>
+                    <h5 className="card-title">
+                      <span>
+                        <i className="bi bi-wallet2 me-2"></i>
+                      </span>
+                      {wallet.name}
+                    </h5>
                     <p className="card-text">
                       {wallet.initialBalance} {wallet.currency}
                     </p>
