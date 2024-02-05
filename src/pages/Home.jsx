@@ -1,5 +1,5 @@
 import React from "react";
-import HomeWallet from "../layouts/home/HomeWallet";
+import HomeWallet from "../layouts/home/HomeComponents";
 
 function Home() {
   return (

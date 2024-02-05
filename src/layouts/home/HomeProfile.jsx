@@ -6,7 +6,7 @@ function HomeProfile() {
   const { user } = useUserContext();
   return (
     <>
-      <div className="card shadow">
+      <div className="card shadow mb-2">
         <div className="card-body">
           <img src={avatarImg} alt="" className="avatar-image mb-2" />
           <h5 className="card-title">{user.name}</h5>
