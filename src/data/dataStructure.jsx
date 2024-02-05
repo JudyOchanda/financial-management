@@ -16,11 +16,6 @@ const user = {
       type: "Business income",
       amount: 40000,
     },
-    {
-      id: 3,
-      type: "Rent",
-      amount: 10000,
-    },
   ],
   debts: [
     {
@@ -36,7 +31,23 @@ const user = {
       dueDate: "2024-10-20",
     },
   ],
-  bills: [],
+  bills: [
+    {
+      id: 1,
+      type: "Rent",
+      amount: 10000,
+    },
+    {
+      id: 2,
+      type: "Food",
+      amount: 10000,
+    },
+    {
+      id: 3,
+      type: "Transport",
+      amount: 10000,
+    },
+  ],
 };
 
 export { user };
