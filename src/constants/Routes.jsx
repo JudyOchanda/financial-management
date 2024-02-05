@@ -3,6 +3,7 @@ import React, { Suspense, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { publicLinks } from "./links";
 import Navbar from "../layouts/Navbar";
+import { useUserContext } from "../authContext";
 
 const Landing = React.lazy(() => import("../pages/Landing"));
 const Home = React.lazy(() => import("../pages/Home"));
@@ -13,7 +14,7 @@ const Signup = React.lazy(() => import("../pages/Signup"));
 const ExpenseTracking = React.lazy(() => import("../pages/ExpenseTracking"));
 
 function BaseRouter() {
-  const [isSignedIn, setIsSignedIn] = useState(true);
+  const { user, isSignedIn } = useUserContext();
   return (
     <Router>
       <Suspense fallback={<>Loading...</>}>

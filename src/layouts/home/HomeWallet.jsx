@@ -1,31 +1,18 @@
 import React from "react";
-import { walletsData } from "../../data/dataStructure.jsx";
 import { Link } from "react-router-dom";
+import { useUserContext } from "../../authContext";
 
 function HomeWallet() {
+  const { user } = useUserContext();
   return (
     <>
       <section className="mb-3">
-        <div className="row">
-          {walletsData.map((wallet) => (
-            <div className="col-md-4 col-sm-12 mb-2" key={wallet.id}>
-              <Link className="text-decoration-none">
-                <div className="card shadow bg-light-subtle">
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      <span>
-                        <i className="bi bi-wallet2 me-2"></i>
-                      </span>
-                      {wallet.name}
-                    </h5>
-                    <p className="card-text">
-                      {wallet.initialBalance} {wallet.currency}
-                    </p>
-                  </div>
-                </div>
-              </Link>
+        <div className="card shadow">
+            <div className="card-body">
+                <h5 className="card-title">Wallet</h5>
+                <p className="card-text">Ksh {user.accountBalance}</p>
+                <p className="card-text">Transactions: {user.transactions.length}</p>
             </div>
-          ))}
         </div>
       </section>
     </>

@@ -1,8 +1,9 @@
 import React from "react";
 import avatarImg from "../../assets/images/home/ava.jpg";
-import { user } from "../../data/dataStructure";
+import { useUserContext } from "../../authContext";
 
 function HomeProfile() {
+  const { user } = useUserContext();
   return (
     <>
       <section className="mb-3">
