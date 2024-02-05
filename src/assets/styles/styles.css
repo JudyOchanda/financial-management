@@ -1,0 +1,11 @@
+.app-style {
+    background-color: #b2d8d8;
+}
+
+
+.avatar-image {
+    height: 75px;
+    width: 75px;
+    object-fit: cover;
+    border-radius: 50%;
+}
