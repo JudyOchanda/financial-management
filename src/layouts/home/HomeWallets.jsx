@@ -4,7 +4,7 @@ import { useUserContext } from "../../authContext";
 function HomeWallets() {
   const { user } = useUserContext();
   return (
-      <div className="card shadow">
+      <div className="card shadow mb-2">
         <h5 className="card-header">Wallet</h5>
         <div className="card-body">
           <p className="card-text">Balance: Ksh {user.accountBalance}</p>

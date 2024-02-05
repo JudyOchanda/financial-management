@@ -6,7 +6,7 @@ function HomeTransactions() {
   const { user } = useUserContext();
   return (
     <>
-      <div className="card shadow mb-3">
+      <div className="card shadow mb-2">
         <h5 className="card-header">Transactions</h5>
         <ul className="list-group">
           {user.transactions.map((transaction) => (

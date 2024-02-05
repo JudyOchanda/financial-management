@@ -8,7 +8,7 @@ import HomeWallets from "./HomeWallets";
 function HomeComponents() {
   return (
     <>
-      <section>
+      <section className="mb-3">
         <div className="row">
           <div className="col-md-4 col-sm-12">
             <HomeProfile />

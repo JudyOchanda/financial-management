@@ -6,7 +6,7 @@ function HomeDebts() {
     const { user } = useUserContext();
   return (
     <>
-      <div className="card shadow mb-3">
+      <div className="card shadow mb-2">
         <h5 className="card-header">Debts</h5>
         <ul className="list-group">
           {user.debts.map((debt) => (
