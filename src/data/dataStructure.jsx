@@ -8,7 +8,7 @@ const user = {
   transactions: [
     {
       id: 1,
-      type: "salary",
+      type: "Salary",
       amount: 50000,
     },
     {
