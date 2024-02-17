@@ -3,9 +3,21 @@ import avatarImg from "../assets/images/home/ava.jpg";
 import { useUserContext } from "../authContext";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import { publicLinks } from "../constants/links";
+import { myExpenses } from "../data/expenses";
 
 function Home() {
   const { user } = useUserContext();
+
+  const recentExpenses = myExpenses.slice(0, 3);
+  const currentDate = new Date().toISOString().split("T")[0];
+
+  const expensesForCurrentDay = myExpenses.filter(
+    (expense) => expense.date === currentDate
+  );
+
+  console.log(expensesForCurrentDay);
+
   return (
     <>
       <div className="container py-2">
@@ -26,7 +38,9 @@ function Home() {
               <h6>Quick Access</h6>
               <hr />
               <div className="list-group list-group-flush">
-                <Link className="list-group-item">Expenses</Link>
+                <Link to={publicLinks?.Expenses} className="list-group-item">
+                  Expenses
+                </Link>
                 <Link className="list-group-item">Category</Link>
                 <Link className="list-group-item">Charts</Link>
                 <Link className="list-group-item">Setting</Link>
@@ -43,55 +57,47 @@ function Home() {
             <hr />
 
             <div className="mb-3">
-              <h6 className="text-secondary">Today</h6>
-              <div className="list-group list-group-flush">
-                <div className="list-group-item d-flex justify-content-between align-items-center">
-                  <div className="me-auto">
-                    <div className="fw-semibold">Food</div>
-                    Ksh 300
+              <h6 className="text-secondary text-uppercase">Today</h6>
+              {expensesForCurrentDay ? (
+                <>
+                  <div className="list-group list-group-flush">
+                    {expensesForCurrentDay.map((item) => (
+                      <>
+                        <div className="list-group-item d-flex justify-content-between align-items-center">
+                          <div className="me-auto">
+                            <div className="fw-semibold">{item.category}</div>
+                            Ksh {item.amount}
+                          </div>
+                        </div>
+                      </>
+                    ))}
                   </div>
-                </div>
-                <div className="list-group-item d-flex justify-content-between align-items-center">
-                  <div className="me-auto">
-                    <div className="fw-semibold">Food</div>
-                    Ksh 300
-                  </div>
-                </div>
-              </div>
+                </>
+              ) : (
+                <>
+                  <p>No expenses today</p>
+                </>
+              )}
             </div>
 
             <hr />
 
             <div className="mb-3">
-              <h6 className="text-secondary">Your Expenses</h6>
+              <h6 className="text-secondary text-uppercase">Your Expenses</h6>
               <article>
                 <div className="row">
-                  <div className="col-md-4 col-sm-12 mb-2">
-                    <div className="card">
-                      <div className="card-body">
-                        <h5 className="card-title">Food</h5>
-                        <p className="card-text">Ksh 300</p>
+                  {recentExpenses.map((item) => (
+                    <>
+                      <div className="col-md-4 col-sm-12 mb-2" key={item.id}>
+                        <div className="card h-100">
+                          <div className="card-body">
+                            <h5 className="card-title">{item.name}</h5>
+                            <p className="card-text">{item.amount}</p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-4 col-sm-12 mb-2">
-                    <div className="card">
-                      <div className="card-body">
-                        <h5 className="card-title">Food</h5>
-                        <p className="card-text">Ksh 300</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-4 col-sm-12 mb-2">
-                    <div className="card">
-                      <div className="card-body">
-                        <h5 className="card-title">Food</h5>
-                        <p className="card-text">Ksh 300</p>
-                      </div>
-                    </div>
-                  </div>
+                    </>
+                  ))}
                 </div>
               </article>
             </div>

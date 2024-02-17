@@ -26,27 +26,12 @@ function Navbar() {
             <ul className="navbar-nav">
               <li className="nav-item">
                 <Link to={publicLinks?.Home} className="nav-link">
-                  <i className="bi bi-house"></i> Home
+                  Home
                 </Link>
               </li>
               <li className="nav-item">
                 <Link to={publicLinks?.ExpenseTracking} className="nav-link">
-                  <i className="bi bi-cart"></i> Expense Tracking
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={publicLinks?.Budget} className="nav-link">
-                  <i className="bi bi-credit-card"></i> Budget
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={publicLinks?.ExpenseTracking} className="nav-link">
-                  <i className="bi bi-graph-up-arrow"></i> Reports & Analysis
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={publicLinks?.Signup} className="nav-link">
-                  Signup
+                  Expenses
                 </Link>
               </li>
             </ul>
