@@ -5,7 +5,7 @@ const publicLinks = {
   Budget: "/budget",
   Login: "/login",
   Signup: "/sign-up",
-  ExpenseTracking: "/expense-tracking",
+  Expenses: "/expenses",
 };
 
 export { publicLinks };

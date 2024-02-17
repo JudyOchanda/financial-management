@@ -1,5 +1,5 @@
 import React from 'react';
-function ExpenseTracking() {
+function Expenses() {
     return ( 
         <>
         <div className="container">
@@ -9,4 +9,4 @@ function ExpenseTracking() {
      );
 }
 
-export default ExpenseTracking;
+export default Expenses;
