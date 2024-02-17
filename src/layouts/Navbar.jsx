@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { publicLinks } from "../constants/links";
 
+
 function Navbar() {
   return (
     <>
@@ -37,6 +38,16 @@ function Navbar() {
               <li className="nav-item">
                 <Link to={publicLinks?.Category} className="nav-link">
                   Category
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={publicLinks?.Charts} className="nav-link">
+                  Analysis
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={publicLinks?.Settings} className="nav-link">
+                  Settings
                 </Link>
               </li>
             </ul>

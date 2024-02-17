@@ -1,13 +1,10 @@
 import React from "react";
-import avatarImg from "../assets/images/home/ava.jpg";
-import { useUserContext } from "../authContext";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { publicLinks } from "../constants/links";
 import { myExpenses } from "../data/expenses";
 
 function Home() {
-  const { user } = useUserContext();
 
   const recentExpenses = myExpenses.slice(0, 3);
   const currentDate = new Date().toISOString().split("T")[0];
@@ -22,42 +19,18 @@ function Home() {
     <>
       <div className="container py-2">
         <div className="row">
-          <div className="col-md-4 col-sm-12 mb-3">
-            <article>
-              <div className="card">
-                <div className="card-body">
-                  <img src={avatarImg} alt="" className="avatar-image mb-2" />
-                  <h5 className="card-title">{user.name}</h5>
-                  <p className="card-text">{user.phone}</p>
-                  <p className="card-text">{user.email}</p>
-                </div>
-              </div>
-            </article>
-            <hr />
-            <article>
-              <h6>Quick Access</h6>
-              <hr />
-              <div className="list-group list-group-flush">
-                <Link to={publicLinks?.Expenses} className="list-group-item">
-                  Expenses
-                </Link>
-                <Link className="list-group-item">Category</Link>
-                <Link className="list-group-item">Charts</Link>
-                <Link className="list-group-item">Setting</Link>
-              </div>
-            </article>
-          </div>
-
-          <div className="col-md-8 col-sm-12 mb-3">
+          <div className="col-md-9 col-sm-12 mb-3">
             <div className="d-flex justify-content-between">
-              <h4>Expenses</h4>
+              <h4>Dashboard</h4>
               <Button variant="outline-primary">Add Expense</Button>
             </div>
             <p>23/09/2024</p>
             <hr />
 
             <div className="mb-3">
-              <h6 className="text-secondary text-uppercase">Today</h6>
+              <h6 className="text-secondary text-uppercase">
+                Today's Expenses
+              </h6>
               {expensesForCurrentDay ? (
                 <>
                   <div className="list-group list-group-flush">
@@ -101,6 +74,21 @@ function Home() {
                 </div>
               </article>
             </div>
+          </div>
+
+          <div className="col-md-3 col-sm-12 mb-3">
+            <article>
+              <h6>Quick Access</h6>
+              <hr />
+              <div className="list-group list-group-flush">
+                <Link to={publicLinks?.Expenses} className="list-group-item">
+                  Expenses
+                </Link>
+                <Link className="list-group-item">Category</Link>
+                <Link className="list-group-item">Charts</Link>
+                <Link className="list-group-item">Setting</Link>
+              </div>
+            </article>
           </div>
         </div>
       </div>

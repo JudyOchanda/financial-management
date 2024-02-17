@@ -1,7 +1,5 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
-import { myExpenses } from "../data/expenses";
-import { Link } from "react-router-dom";
 import { category } from "../data/categorySample";
 
 function Category() {

@@ -7,6 +7,8 @@ const publicLinks = {
   Signup: "/sign-up",
   Expenses: "/expenses",
   Category: "/category",
+  Charts: "/charts",
+  Settings: "/settings",
 };
 
 export { publicLinks };
