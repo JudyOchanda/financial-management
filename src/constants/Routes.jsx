@@ -12,6 +12,7 @@ const Budget = React.lazy(() => import("../pages/Budget"));
 const Login = React.lazy(() => import("../pages/Login"));
 const Signup = React.lazy(() => import("../pages/Signup"));
 const Expenses = React.lazy(() => import("../pages/Expenses"));
+const Category = React.lazy(() => import("../pages/Category"));
 
 function BaseRouter() {
   const { user, isSignedIn } = useUserContext();
@@ -33,6 +34,7 @@ function BaseRouter() {
           <Route path={publicLinks.Login} element={<Login />} />
           <Route path={publicLinks.Signup} element={<Signup />} />
           <Route path={publicLinks.Expenses} element={<Expenses />} />
+          <Route path={publicLinks.Category} element={<Category />} />
         </Routes>
       </Suspense>
     </Router>

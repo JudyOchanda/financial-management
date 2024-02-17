@@ -34,6 +34,11 @@ function Navbar() {
                   Expenses
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to={publicLinks?.Category} className="nav-link">
+                  Category
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
