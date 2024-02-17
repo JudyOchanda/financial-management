@@ -5,7 +5,10 @@ const publicLinks = {
   Budget: "/budget",
   Login: "/login",
   Signup: "/sign-up",
-  ExpenseTracking: "/expense-tracking",
+  Expenses: "/expenses",
+  Category: "/category",
+  Charts: "/charts",
+  Settings: "/settings",
 };
 
 export { publicLinks };
