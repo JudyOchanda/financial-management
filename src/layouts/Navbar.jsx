@@ -30,7 +30,7 @@ function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={publicLinks?.ExpenseTracking} className="nav-link">
+                <Link to={publicLinks?.Expenses} className="nav-link">
                   Expenses
                 </Link>
               </li>
