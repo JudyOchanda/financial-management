@@ -56,3 +56,15 @@ export async function updateCategory(categoryId, newName, newColor) {
     color: newColor,
   });
 }
+
+
+// Expenses CRUD
+export function addExpense(uid, date, category, amount, imageBucket) {
+  addDoc(collection(db, EXPENSES_COLLECTION), {
+    uid,
+    date,
+    category,
+    amount,
+    imageBucket,
+  });
+}
