@@ -3,7 +3,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Field, Form, Formik } from "formik";
 import { useAuth } from "../firebase/auth";
-import { addCategory, getCategories } from "../firebase/firestore";
+import {
+  addCategory,
+  deleteCategory,
+  getCategories,
+} from "../firebase/firestore";
 import { toast } from "react-toastify";
 
 function Category() {
@@ -13,6 +17,19 @@ function Category() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleDelete = async (categoryId) => {
+    try {
+      await deleteCategory(categoryId);
+      setCategories(
+        categories.filter((category) => category.id !== categoryId)
+      );
+      toast.success("Category Deleted");
+    } catch (error) {
+      toast.error("Failed to delete category");
+      console.log(error)
+    }
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -26,8 +43,6 @@ function Category() {
       fetchCategories();
     }
   }, [authUser]);
-
-  console.log(categories)
 
   return (
     <div className="container py-2">
@@ -124,7 +139,10 @@ function Category() {
                 <button className="btn">
                   <i className="bi bi-pencil-square"></i>
                 </button>
-                <button className="btn">
+                <button
+                  className="btn"
+                  onClick={() => handleDelete(category.id)}
+                >
                   <i className="bi bi bi-trash3-fill"></i>
                 </button>
               </div>
