@@ -22,8 +22,8 @@ function Landing() {
             </h1>
             <h4 className="fw-semibold">Payments | Transfer | Family</h4>
             <Link
-              to={publicLinks.Home}
-              className="btn shadow px-3 btn-info rounded-pill "
+              to={publicLinks.Login}
+              className="btn btn-outline-info "
             >
               Get Started
             </Link>
