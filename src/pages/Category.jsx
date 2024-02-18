@@ -1,18 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { category } from "../data/categorySample";
 import { Field, Form, Formik } from "formik";
 import { useAuth } from "../firebase/auth";
-import { addCategory } from "../firebase/firestore";
+import { addCategory, getCategories } from "../firebase/firestore";
 import { toast } from "react-toastify";
 
 function Category() {
   const { authUser } = useAuth();
   const [show, setShow] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const userCategories = await getCategories(authUser.uid);
+        setCategories(userCategories);
+      } catch (error) {}
+    };
+
+    if (authUser) {
+      fetchCategories();
+    }
+  }, [authUser]);
+
   return (
     <div className="container py-2">
       <section>
@@ -94,40 +108,24 @@ function Category() {
       <hr />
 
       <section>
-        <div className="table-responsive">
-          <table className="table table-bordered">
-            <thead>
-              <tr>
-                <th>Color</th>
-                <th>Name</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {category.map((item) => (
-                <>
-                  <tr key={item.id}>
-                    <td>
-                      <button
-                        className="btn"
-                        style={{
-                          height: "20px",
-                          width: "20px",
-                          borderRadius: "50%",
-                          backgroundColor: item.color,
-                        }}
-                      ></button>
-                    </td>
-                    <td>{item.name}</td>
-                    <td>
-                      <Button variant="outline-primary">Manage</Button>
-                    </td>
-                  </tr>
-                </>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {categories.map((category) => (
+          <div key={category.id}>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h6 className="fw-bold" style={{ color: category.color }}>
+                {category.name}
+              </h6>
+              <div className="btn-group" role="group">
+                <button className="btn">
+                  <i className="bi bi-pencil-square"></i>
+                </button>
+                <button className="btn">
+                  <i className="bi bi bi-trash3-fill"></i>
+                </button>
+              </div>
+            </div>
+            <hr />
+          </div>
+        ))}
       </section>
     </div>
   );
