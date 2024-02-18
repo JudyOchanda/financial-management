@@ -3,12 +3,10 @@ import React, { Suspense, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { publicLinks } from "./links";
 import Navbar from "../layouts/Navbar";
-import { useUserContext } from "../authContext";
+import { useAuth } from "../firebase/auth";
 
 const Landing = React.lazy(() => import("../pages/Landing"));
 const Home = React.lazy(() => import("../pages/Home"));
-const Profile = React.lazy(() => import("../pages/Profile"));
-const Budget = React.lazy(() => import("../pages/Budget"));
 const Login = React.lazy(() => import("../pages/Login"));
 const Signup = React.lazy(() => import("../pages/Signup"));
 const Expenses = React.lazy(() => import("../pages/Expenses"));
@@ -17,28 +15,27 @@ const Charts = React.lazy(() => import("../pages/Charts"));
 const Settings = React.lazy(() => import("../pages/Settings"));
 
 function BaseRouter() {
-  const { user, isSignedIn } = useUserContext();
+  const { authUser } = useAuth();
   return (
     <Router>
       <Suspense fallback={<>Loading...</>}>
         <Navbar />
         <Routes>
-          {isSignedIn ? (
+          {authUser ? (
             <>
               <Route exact path={publicLinks.Home} element={<Home />} />
+              <Route path={publicLinks.Expenses} element={<Expenses />} />
+              <Route path={publicLinks.Category} element={<Category />} />
+              <Route path={publicLinks.Charts} element={<Charts />} />
+              <Route path={publicLinks.Settings} element={<Settings />} />
             </>
           ) : (
-            <Route exact path={publicLinks.Landing} element={<Landing />} />
+            <>
+              <Route exact path={publicLinks.Landing} element={<Landing />} />
+              <Route path={publicLinks.Login} element={<Login />} />
+              <Route path={publicLinks.Signup} element={<Signup />} />
+            </>
           )}
-
-          <Route path={publicLinks.Profile} element={<Profile />} />
-          <Route path={publicLinks.Budget} element={<Budget />} />
-          <Route path={publicLinks.Login} element={<Login />} />
-          <Route path={publicLinks.Signup} element={<Signup />} />
-          <Route path={publicLinks.Expenses} element={<Expenses />} />
-          <Route path={publicLinks.Category} element={<Category />} />
-          <Route path={publicLinks.Charts} element={<Charts />} />
-          <Route path={publicLinks.Settings} element={<Settings />} />
         </Routes>
       </Suspense>
     </Router>

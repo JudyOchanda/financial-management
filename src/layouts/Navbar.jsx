@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { publicLinks } from "../constants/links";
-
+import { useAuth } from "../firebase/auth";
 
 function Navbar() {
+  const { authUser } = useAuth();
   return (
     <>
       <nav className="navbar navbar-expand-md sticky-top bg-dark-subtle mb-3">
@@ -25,31 +26,44 @@ function Navbar() {
             id="collapsibleNavbar"
           >
             <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link to={publicLinks?.Home} className="nav-link">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={publicLinks?.Expenses} className="nav-link">
-                  Expenses
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={publicLinks?.Category} className="nav-link">
-                  Category
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={publicLinks?.Charts} className="nav-link">
-                  Analysis
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={publicLinks?.Settings} className="nav-link">
-                  Settings
-                </Link>
-              </li>
+              {authUser ? (
+                <>
+                  <li className="nav-item">
+                    <Link to={publicLinks?.Home} className="nav-link">
+                      Home
+                    </Link>
+                  </li>
+
+                  <li className="nav-item">
+                    <Link to={publicLinks?.Expenses} className="nav-link">
+                      Expenses
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to={publicLinks?.Category} className="nav-link">
+                      Category
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to={publicLinks?.Charts} className="nav-link">
+                      Analysis
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to={publicLinks?.Settings} className="nav-link">
+                      Settings
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <Link to={publicLinks?.Login} className="nav-link">
+                      Sign In
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
