@@ -4,7 +4,7 @@ import { publicLinks } from "../constants/links";
 import { useAuth } from "../firebase/auth";
 
 function Navbar() {
-  const { authUser } = useAuth();
+  const { authUser, signOut } = useAuth();
   return (
     <>
       <nav className="navbar navbar-expand-md sticky-top bg-dark-subtle mb-3">
@@ -52,6 +52,11 @@ function Navbar() {
                   <li className="nav-item">
                     <Link to={publicLinks?.Settings} className="nav-link">
                       Settings
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link onClick={signOut} className="nav-link text-danger">
+                      Sign Out
                     </Link>
                   </li>
                 </>
