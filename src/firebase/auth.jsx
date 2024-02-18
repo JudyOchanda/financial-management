@@ -74,7 +74,7 @@ export default function useFirebaseAuth() {
     authStateChanged(userCredential.user);
   };
 
-  const signInWithPhone = async ({phoneNumber, appVerifier}) => {
+  const signInWithPhone = async ({ phoneNumber, appVerifier }) => {
     const confirmationResult = await signInWithPhoneNumber(
       auth,
       phoneNumber,

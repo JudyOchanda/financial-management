@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { publicLinks } from "../constants/links";
@@ -8,6 +8,8 @@ import { useAuth } from "../firebase/auth";
 function Home() {
 
   const {authUser} = useAuth()
+
+  useEffect(() => {}, [authUser]);
 
   const recentExpenses = myExpenses.slice(0, 3);
   const currentDate = new Date().toISOString().split("T")[0];
