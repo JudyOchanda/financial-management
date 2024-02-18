@@ -27,6 +27,8 @@ function Category() {
     }
   }, [authUser]);
 
+  console.log(categories)
+
   return (
     <div className="container py-2">
       <section>
@@ -111,9 +113,13 @@ function Category() {
         {categories.map((category) => (
           <div key={category.id}>
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h6 className="fw-bold" style={{ color: category.color }}>
+              <h6
+                className="fw-bold"
+                style={{ color: category.color.toLowerCase() }}
+              >
                 {category.name}
               </h6>
+
               <div className="btn-group" role="group">
                 <button className="btn">
                   <i className="bi bi-pencil-square"></i>

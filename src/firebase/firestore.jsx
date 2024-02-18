@@ -7,13 +7,15 @@ const EXPENSES_COLLECTION = "expenses";
 
 // categories CRUD
 // creating category
-export function addCategory(uid, name, color) {
-  addDoc(collection(db, CATEGORY_COLLECTION), {
+export async function addCategory(uid, name, color) {
+  const categoryRef = await addDoc(collection(db, CATEGORY_COLLECTION), {
     uid,
     name,
     color,
   });
+  return { id: categoryRef.id, uid, name, color };
 }
+
 
 // fetching categories
 export async function getCategories(uid) {
