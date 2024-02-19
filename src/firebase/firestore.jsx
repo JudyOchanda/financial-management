@@ -71,21 +71,20 @@ export function addExpense(uid, date, categoryId, amount, imageBucket) {
   });
 }
 
-// get expense
+// get expenses
 export async function getExpenses(uid) {
-  const expensesRef = collection(db, EXPENSES_COLLECTION);
+  const categoriesRef = collection(db, EXPENSES_COLLECTION);
   const querySnapshot = await getDocs(
-    query(expensesRef, where("uid", "==", uid), orderBy("date", "desc"))
+    query(categoriesRef, where("uid", "==", uid), orderBy("date", "desc"))
   );
 
   let expenses = [];
   querySnapshot.forEach((doc) => {
-    const expense = doc.data();
     expenses.push({
-      ...expense,
       id: doc.id,
+      ...doc.data(),
     });
   });
 
-  return expenses; // Added to return the expenses array
+  return expenses;
 }

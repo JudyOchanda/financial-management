@@ -16,28 +16,30 @@ function Expenses() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const fetchCategories = async () => {
-    try {
-      const userCategories = await getCategories(authUser.uid);
-      setCategories(userCategories);
-    } catch (error) {}
-  };
-
-  const fetchExpenses = async () => {
-    try {
-      const userExpenses = await getExpenses(authUser.uid);
-      setExpenses(userExpenses);
-    } catch (error) {}
-  };
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const userCategories = await getCategories(authUser.uid);
+        setCategories(userCategories);
+      } catch (error) {}
+    };
+
+    const fetchExpenses = async () => {
+      try {
+        const userExpenses = await getExpenses(authUser.uid);
+        setExpenses(userExpenses);
+      } catch (error) {}
+    };
+
     if (authUser) {
       fetchCategories();
       fetchExpenses();
     }
   }, [authUser]);
-
+  
   console.log(expenses)
+
 
   return (
     <>
@@ -93,7 +95,6 @@ function Expenses() {
                     setShow(false);
                   } catch (error) {
                     toast.error("Expense Add Failed");
-                    console.log(error);
                   }
                 }}
               >
