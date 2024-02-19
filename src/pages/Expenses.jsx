@@ -38,8 +38,7 @@ function Expenses() {
     }
   }, [authUser]);
   
-  console.log(expenses)
-
+console.log(expenses)
 
   return (
     <>
@@ -70,6 +69,8 @@ function Expenses() {
               <Formik
                 initialValues={{
                   receiptImage: "",
+                  name: "",
+                  description: "",
                   amount: "",
                   categoryId: "",
                   date: "",
@@ -88,6 +89,8 @@ function Expenses() {
                       authUser.uid,
                       values.date,
                       values.categoryId,
+                      values.name,
+                      values.description,
                       values.amount,
                       bucket
                     );
@@ -111,6 +114,39 @@ function Expenses() {
                           setFieldValue(
                             "receiptImage",
                             event.currentTarget.files[0]
+                          );
+                        }}
+                      />
+                    </div>
+
+                    <div className="mb-3">
+                      <label htmlFor="name" className="form-label">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="name"
+                        id="name"
+                        onChange={(event) => {
+                          setFieldValue("name", event.currentTarget.value);
+                        }}
+                      />
+                    </div>
+
+                    <div className="mb-3">
+                      <label htmlFor="description" className="form-label">
+                        Description
+                      </label>
+                      <input
+                        type="textarea"
+                        className="form-control"
+                        name="description"
+                        id="description"
+                        onChange={(event) => {
+                          setFieldValue(
+                            "description",
+                            event.currentTarget.value
                           );
                         }}
                       />

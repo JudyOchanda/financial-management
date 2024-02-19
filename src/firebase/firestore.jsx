@@ -8,7 +8,6 @@ import {
   deleteDoc,
   doc,
   updateDoc,
-  orderBy,
 } from "firebase/firestore";
 
 const CATEGORY_COLLECTION = "categories";
@@ -61,11 +60,21 @@ export async function updateCategory(categoryId, newName, newColor) {
 // Expenses CRUD
 
 // create expense
-export function addExpense(uid, date, categoryId, amount, imageBucket) {
+export function addExpense(
+  uid,
+  date,
+  categoryId,
+  name,
+  description,
+  amount,
+  imageBucket
+) {
   addDoc(collection(db, EXPENSES_COLLECTION), {
     uid,
     date,
     categoryId,
+    name,
+    description,
     amount,
     imageBucket,
   });
@@ -75,7 +84,7 @@ export function addExpense(uid, date, categoryId, amount, imageBucket) {
 export async function getExpenses(uid) {
   const categoriesRef = collection(db, EXPENSES_COLLECTION);
   const querySnapshot = await getDocs(
-    query(categoriesRef, where("uid", "==", uid), orderBy("date", "desc"))
+    query(categoriesRef, where("uid", "==", uid))
   );
 
   let expenses = [];
