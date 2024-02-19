@@ -38,7 +38,6 @@ function Expenses() {
     }
   }, [authUser]);
   
-console.log(expenses)
 
   return (
     <>
@@ -228,7 +227,30 @@ console.log(expenses)
         </section>
         <hr />
 
-        <section></section>
+        <section>
+          <div className="row">
+            {expenses.map((expense) => {
+              const category = categories.find(
+                (cat) => cat.id === expense.categoryId
+              );
+              const categoryName = category ? category.name : "";
+
+              return (
+                <div key={expense.id} className="col-md-4 col-sm-12 mb-3">
+                  <div className="card h-100">
+                    <div className="card-body">
+                      <h5 className="card-title">{expense.name}</h5>
+                      <p className="card-text">{expense.description}</p>
+                      <p className="card-text">{expense.amount}</p>
+                      <p className="card-text">{categoryName}</p>
+                      <p className="card-text">{expense.date}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
       </div>
     </>
   );
