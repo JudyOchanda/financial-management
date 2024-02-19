@@ -8,6 +8,7 @@ import {
   deleteDoc,
   doc,
   updateDoc,
+  orderBy,
 } from "firebase/firestore";
 
 const CATEGORY_COLLECTION = "categories";
@@ -57,8 +58,9 @@ export async function updateCategory(categoryId, newName, newColor) {
   });
 }
 
-
 // Expenses CRUD
+
+// create expense
 export function addExpense(uid, date, categoryId, amount, imageBucket) {
   addDoc(collection(db, EXPENSES_COLLECTION), {
     uid,
@@ -67,4 +69,23 @@ export function addExpense(uid, date, categoryId, amount, imageBucket) {
     amount,
     imageBucket,
   });
+}
+
+// get expense
+export async function getExpenses(uid) {
+  const expensesRef = collection(db, EXPENSES_COLLECTION);
+  const querySnapshot = await getDocs(
+    query(expensesRef, where("uid", "==", uid), orderBy("date", "desc"))
+  );
+
+  let expenses = [];
+  querySnapshot.forEach((doc) => {
+    const expense = doc.data();
+    expenses.push({
+      ...expense,
+      id: doc.id,
+    });
+  });
+
+  return expenses; // Added to return the expenses array
 }

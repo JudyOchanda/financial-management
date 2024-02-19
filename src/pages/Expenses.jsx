@@ -6,27 +6,38 @@ import Modal from "react-bootstrap/Modal";
 import { Form, Formik } from "formik";
 import { uploadImage } from "../firebase/storage";
 import { toast } from "react-toastify";
-import { addExpense, getCategories } from "../firebase/firestore";
+import { addExpense, getCategories, getExpenses } from "../firebase/firestore";
 function Expenses() {
   const { authUser } = useAuth();
   const [show, setShow] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [expenses, setExpenses] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const userCategories = await getCategories(authUser.uid);
-        setCategories(userCategories);
-      } catch (error) {}
-    };
+  const fetchCategories = async () => {
+    try {
+      const userCategories = await getCategories(authUser.uid);
+      setCategories(userCategories);
+    } catch (error) {}
+  };
 
+  const fetchExpenses = async () => {
+    try {
+      const userExpenses = await getExpenses(authUser.uid);
+      setExpenses(userExpenses);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
     if (authUser) {
       fetchCategories();
+      fetchExpenses();
     }
   }, [authUser]);
+
+  console.log(expenses)
 
   return (
     <>
@@ -82,7 +93,7 @@ function Expenses() {
                     setShow(false);
                   } catch (error) {
                     toast.error("Expense Add Failed");
-                    console.log(error)
+                    console.log(error);
                   }
                 }}
               >
