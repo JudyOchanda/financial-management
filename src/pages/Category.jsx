@@ -143,6 +143,15 @@ function Category() {
               )}
             </Formik>
           </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={handleClose}
+            >
+              Close
+            </button>
+          </div>
         </Modal>
       </section>
 
@@ -259,6 +268,15 @@ function Category() {
                       </Form>
                     )}
                   </Formik>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={handleShut}
+                  >
+                    Close
+                  </button>
                 </div>
               </Modal>
             </div>

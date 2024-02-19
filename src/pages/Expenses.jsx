@@ -1,54 +1,186 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
-import { myExpenses } from "../data/expenses";
-import { Link } from "react-router-dom";
+import { useAuth } from "../firebase/auth";
+import Modal from "react-bootstrap/Modal";
+import { Form, Formik } from "formik";
+import { uploadImage } from "../firebase/storage";
+import { toast } from "react-toastify";
+import { addExpense, getCategories } from "../firebase/firestore";
 function Expenses() {
+  const { authUser } = useAuth();
+  const [show, setShow] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const userCategories = await getCategories(authUser.uid);
+        setCategories(userCategories);
+      } catch (error) {}
+    };
+
+    if (authUser) {
+      fetchCategories();
+    }
+  }, [authUser]);
+
   return (
     <>
       <div className="container py-3">
         <section>
           <div className="d-flex justify-content-between">
             <h2 className="fw-bold text-uppercase">Expenses</h2>
-            <Button variant="outline-primary">Add Expense</Button>
+            <Button onClick={handleShow} variant="outline-primary">
+              Add Expense
+            </Button>
           </div>
+
+          <Modal
+            show={show}
+            onHide={handleClose}
+            dialogClassName="modal-dialog modal-dialog-centered"
+          >
+            <div className="modal-header">
+              <h5 className="modal-title">Add an Expense</h5>
+              <button
+                type="button"
+                className="btn-close"
+                onClick={handleClose}
+              ></button>
+            </div>
+
+            <div className="modal-body">
+              <Formik
+                initialValues={{
+                  receiptImage: "",
+                  amount: "",
+                  categoryId: "",
+                  date: "",
+                }}
+                onSubmit={async (values) => {
+                  try {
+                    let bucket = null;
+                    if (values.receiptImage) {
+                      bucket = await uploadImage(
+                        values.receiptImage,
+                        authUser.uid
+                      );
+                    }
+
+                    await addExpense(
+                      authUser.uid,
+                      values.date,
+                      values.categoryId,
+                      values.amount,
+                      bucket
+                    );
+                    toast.success("Expense Added");
+                    setShow(false);
+                  } catch (error) {
+                    toast.error("Expense Add Failed");
+                    console.log(error)
+                  }
+                }}
+              >
+                {({ setFieldValue }) => (
+                  <Form>
+                    <div className="mb-3">
+                      <label htmlFor="receiptImage" className="form-label">
+                        Receipt Image
+                      </label>
+                      <input
+                        type="file"
+                        className="form-control"
+                        onChange={(event) => {
+                          setFieldValue(
+                            "receiptImage",
+                            event.currentTarget.files[0]
+                          );
+                        }}
+                      />
+                    </div>
+
+                    <div className="mb-3">
+                      <label htmlFor="amount" className="form-label">
+                        Amount
+                      </label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="amount"
+                        id="amount"
+                        onChange={(event) => {
+                          setFieldValue("amount", event.currentTarget.value);
+                        }}
+                      />
+                    </div>
+
+                    <div className="mb-3">
+                      <label htmlFor="categoryId" className="form-label">
+                        Category
+                      </label>
+                      <select
+                        className="form-select"
+                        name="categoryId"
+                        id="categoryId"
+                        onChange={(event) => {
+                          setFieldValue(
+                            "categoryId",
+                            event.currentTarget.value
+                          );
+                        }}
+                      >
+                        <option value="">Select a category...</option>
+                        {categories.map((category) => (
+                          <option key={category.id} value={category.id}>
+                            {category.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="mb-3">
+                      <label htmlFor="date" className="form-label">
+                        Date
+                      </label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        name="date"
+                        id="date"
+                        onChange={(event) => {
+                          setFieldValue("date", event.currentTarget.value);
+                        }}
+                      />
+                    </div>
+
+                    <div className="mb-3">
+                      <button type="submit" className="btn btn-primary">
+                        Add Expense
+                      </button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleClose}
+              >
+                Close
+              </button>
+            </div>
+          </Modal>
         </section>
         <hr />
 
-        <section>
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Amount</th>
-                  <th>Category</th>
-                  <th>Description</th>
-                  <th>Date</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {myExpenses.map((item) => (
-                  <>
-                    <tr key={item.id}>
-                      <td>{item.name}</td>
-                      <td>{item.amount}</td>
-                      <td>{item.category}</td>
-                      <td>{item.description}</td>
-                      <td>{item.date}</td>
-                      <td>
-                        <div className="d-flex align-items-center justify-content-between">
-                          <Button variant="outline-primary">Edit</Button>
-                          <Link className="btn btn-outline-danger">Delete</Link>
-                        </div>
-                      </td>
-                    </tr>
-                  </>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+        <section></section>
       </div>
     </>
   );

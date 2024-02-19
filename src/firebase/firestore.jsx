@@ -59,11 +59,11 @@ export async function updateCategory(categoryId, newName, newColor) {
 
 
 // Expenses CRUD
-export function addExpense(uid, date, category, amount, imageBucket) {
+export function addExpense(uid, date, categoryId, amount, imageBucket) {
   addDoc(collection(db, EXPENSES_COLLECTION), {
     uid,
     date,
-    category,
+    categoryId,
     amount,
     imageBucket,
   });
