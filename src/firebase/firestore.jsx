@@ -9,6 +9,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+import { getDownloadURL } from "./storage";
 
 const CATEGORY_COLLECTION = "categories";
 const EXPENSES_COLLECTION = "expenses";
@@ -81,19 +82,50 @@ export function addExpense(
 }
 
 // get expenses
+
 export async function getExpenses(uid) {
-  const categoriesRef = collection(db, EXPENSES_COLLECTION);
+  const expensesRef = collection(db, EXPENSES_COLLECTION);
   const querySnapshot = await getDocs(
-    query(categoriesRef, where("uid", "==", uid))
+    query(expensesRef, where("uid", "==", uid))
   );
 
-  let expenses = [];
-  querySnapshot.forEach((doc) => {
-    expenses.push({
+  const expensePromises = querySnapshot.docs.map(async (doc) => {
+    const data = doc.data();
+    const imageUrl = data.imageBucket
+      ? await getDownloadURL(data.imageBucket)
+      : null;
+    return {
       id: doc.id,
-      ...doc.data(),
-    });
+      ...data,
+      imageUrl,
+    };
   });
 
+  const expenses = await Promise.all(expensePromises);
   return expenses;
 }
+
+// update expense
+export function updateExpense(
+  expenseId,
+  uid,
+  date,
+  categoryId,
+  name,
+  description,
+  amount,
+  imageBucket
+) {
+  const expenseRef = doc(db, EXPENSES_COLLECTION, expenseId);
+  updateDoc(expenseRef, {
+    uid,
+    date,
+    categoryId,
+    name,
+    description,
+    amount,
+    imageBucket,
+  });
+}
+
+// delete expense
