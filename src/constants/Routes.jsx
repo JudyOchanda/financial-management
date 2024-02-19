@@ -1,6 +1,11 @@
-/* eslint-disable no-unused-vars */
-import React, { Suspense, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React, { Suspense, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import { publicLinks } from "./links";
 import Navbar from "../layouts/Navbar";
 import { useAuth } from "../firebase/auth";
@@ -16,6 +21,7 @@ const Settings = React.lazy(() => import("../pages/Settings"));
 
 function BaseRouter() {
   const { authUser } = useAuth();
+
   return (
     <Router>
       <Suspense fallback={<>Loading...</>}>
@@ -34,8 +40,6 @@ function BaseRouter() {
               <Route exact path={publicLinks.Landing} element={<Landing />} />
               <Route path={publicLinks.Login} element={<Login />} />
               <Route path={publicLinks.Signup} element={<Signup />} />
-              {/* Redirect to landing page if user is not authenticated */}
-              <Route path="*" element={<Navigate to={publicLinks.Landing} />} />
             </>
           )}
         </Routes>
