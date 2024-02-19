@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { useAuth } from "../firebase/auth";
 import Modal from "react-bootstrap/Modal";
 import { Form, Formik } from "formik";
-import { replaceImage, uploadImage } from "../firebase/storage";
+import {  uploadImage } from "../firebase/storage";
 import { toast } from "react-toastify";
 import {
   addExpense,
