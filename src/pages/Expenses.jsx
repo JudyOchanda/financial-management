@@ -5,10 +5,11 @@ import Button from "react-bootstrap/Button";
 import { useAuth } from "../firebase/auth";
 import Modal from "react-bootstrap/Modal";
 import { Form, Formik } from "formik";
-import {  uploadImage } from "../firebase/storage";
+import { deleteImage, uploadImage } from "../firebase/storage";
 import { toast } from "react-toastify";
 import {
   addExpense,
+  deleteExpense,
   getCategories,
   getExpenses,
   updateExpense,
@@ -35,6 +36,24 @@ function Expenses() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleDeleteExpense = async (expenseId, imageUrl) => {
+    try {
+      // Delete the image from storage if it exists
+      if (imageUrl) {
+        await deleteImage(imageUrl, authUser.id);
+      }
+
+      // Delete the expense from Firestore
+      await deleteExpense(expenseId, authUser.uid);
+
+      toast.success("Expense Deleted");
+
+      // Optionally, update your state to remove the deleted expense from the UI
+    } catch (error) {
+      // Handle error
+    }
+  };
 
   const handleUpdateExpense = async (
     expenseId,
@@ -317,7 +336,16 @@ function Expenses() {
                         >
                           Update
                         </button>
-                        <Link className="btn-outline-danger btn card-link">
+                        <Link
+                          onClick={() =>
+                            handleDeleteExpense(
+                              expense.id,
+                              authUser.uid,
+                              expense.imageUrl
+                            )
+                          }
+                          className="btn-outline-danger btn card-link"
+                        >
                           Delete
                         </Link>
                       </div>

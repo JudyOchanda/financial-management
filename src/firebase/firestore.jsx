@@ -129,3 +129,6 @@ export function updateExpense(
 }
 
 // delete expense
+export async function deleteExpense(expenseId) {
+  await deleteDoc(doc(db, EXPENSES_COLLECTION, expenseId));
+}
